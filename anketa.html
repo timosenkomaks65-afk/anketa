@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анкета · ДонГУ</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f0f2f5;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 860px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      padding: 2.2rem 2.2rem 2.8rem;
+    }
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0b1e33;
+      border-left: 6px solid #2a7de1;
+      padding-left: 1rem;
+      margin-bottom: 1.8rem;
+    }
+    .meta {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 2.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem 3rem;
+      border: 1px solid #e6edf4;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .meta-item label {
+      font-weight: 500;
+      color: #1e3c5a;
+      font-size: 0.95rem;
+    }
+    .meta-item input, .meta-item select {
+      background: white;
+      border: 1px solid #d0ddee;
+      border-radius: 40px;
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+      min-width: 150px;
+      outline: none;
+      transition: 0.2s;
+    }
+    .meta-item input:focus, .meta-item select:focus {
+      border-color: #2a7de1;
+      box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.15);
+    }
+    .meta-item input[type="text"] {
+      flex: 1 1 160px;
+    }
+    .greeting {
+      background: #eef4fa;
+      padding: 1.2rem 1.6rem;
+      border-radius: 18px;
+      margin-bottom: 2.4rem;
+      font-size: 0.98rem;
+      line-height: 1.5;
+      color: #1f3b57;
+      border-left: 4px solid #2a7de1;
+    }
+    .question {
+      margin-top: 2.2rem;
+      border-top: 1px solid #e9eff5;
+      padding-top: 2rem;
+    }
+    .question:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+    .q-title {
+      font-weight: 600;
+      font-size: 1.08rem;
+      color: #0d2a44;
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+    .q-title .q-num {
+      color: #2a7de1;
+      font-weight: 700;
+      margin-right: 0.3rem;
+    }
+    .q-sub {
+      font-weight: 400;
+      font-size: 0.95rem;
+      color: #3f5a78;
+      margin-left: 0.4rem;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.5rem;
+      background: #fafcff;
+      padding: 0.8rem 1.2rem;
+      border-radius: 18px;
+      border: 1px solid #e2ebf5;
+    }
+    .options.vertical {
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      color: #1e3853;
+    }
+    .option-item input[type="radio"],
+    .option-item input[type="checkbox"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: #1f6fd9;
+      margin-right: 0.1rem;
+      flex-shrink: 0;
+    }
+    .option-item label {
+      cursor: pointer;
+    }
+    .free-text {
+      margin-top: 0.7rem;
+      margin-left: 0.2rem;
+    }
+    .free-text input[type="text"],
+    .free-text textarea {
+      width: 100%;
+      max-width: 460px;
+      padding: 0.5rem 0.9rem;
+      border: 1px solid #ccdbea;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      transition: 0.2s;
+      background: white;
+    }
+    .free-text textarea {
+      border-radius: 20px;
+      min-height: 60px;
+      max-width: 100%;
+      resize: vertical;
+    }
+    .free-text input:focus, .free-text textarea:focus {
+      border-color: #2a7de1;
+      box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.1);
+      outline: none;
+    }
+    .inline-flex {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1rem;
+    }
+    .inline-flex .option-item {
+      white-space: nowrap;
+    }
+    .btn-submit {
+      margin-top: 2.8rem;
+      background: #1a5bbf;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.9rem 2.2rem;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 4px 10px rgba(26, 91, 191, 0.25);
+      border: 1px solid #1a5bbf;
+      width: 100%;
+      letter-spacing: 0.3px;
+    }
+    .btn-submit:hover {
+      background: #0f4a9e;
+      transform: scale(1.01);
+      box-shadow: 0 8px 18px rgba(26, 91, 191, 0.3);
+    }
+    .btn-submit:active {
+      transform: scale(0.97);
+    }
+    .footnote {
+      margin-top: 1.8rem;
+      font-size: 0.85rem;
+      color: #6f88a2;
+      text-align: center;
+      border-top: 1px solid #e3ecf5;
+      padding-top: 1.8rem;
+    }
+    hr {
+      border: none;
+      border-top: 1px dashed #d4e0ec;
+      margin: 1.8rem 0 0.2rem;
+    }
+    .inline-block {
+      display: inline-block;
+    }
+    .mt-1 { margin-top: 0.6rem; }
+    .ml-1 { margin-left: 0.3rem; }
+    .q-desc { color: #2d4b6e; font-weight: 400; font-size: 0.95rem; }
+    @media (max-width: 600px) {
+      .container { padding: 1.5rem; }
+      .meta { flex-direction: column; gap: 0.8rem; }
+      .meta-item { flex-wrap: wrap; }
+      .options { padding: 0.8rem 0.8rem; gap: 0.3rem 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>📋 Анкета · ДонГУ</h1>
+
+  <!-- МЕТАДАННЫЕ -->
+  <div class="meta">
+    <div class="meta-item">
+      <label>№ анкеты</label>
+      <input type="text" placeholder="____" style="min-width:70px; width:80px;">
+    </div>
+    <div class="meta-item">
+      <label>Фамилия опрашивающего</label>
+      <input type="text" placeholder="введите фамилию">
+    </div>
+    <div class="meta-item">
+      <label>Опрос прошёл</label>
+      <select>
+        <option>Очно</option>
+        <option>По Телеграму</option>
+        <option>По телефону</option>
+        <option>В соцсетях</option>
+        <option>Другое</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ПРИВЕТСТВИЕ -->
+  <div class="greeting">
+    Здравствуйте! В рамках студенческой социологической практики Донецкого государственного университета мы проводим опрос жителей ДНР по актуальным проблемам жизни в регионе. Вы бы не могли ответить на несколько вопросов? Это займёт около 10 минут. Все ответы — анонимны, мы не будем узнавать Ваши имя и фамилию, адрес проживания или телефоны. Все данные будут анализироваться только в обобщённом виде. Ваши ответы очень важны для нас.
+  </div>
+
+  <!-- ВОПРОСЫ -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">3.</span> Территория проживания опрашиваемого <span class="q-sub">(город + район)</span></div>
+    <div class="free-text"><input type="text" placeholder="например: Донецк, Киевский р-н"></div>
+  </div>
+
+  <div class="question">
+    <div class="q-title"><span class="q-num">4.</span> Пол опрашиваемого</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q4" id="q4_m"><label for="q4_m">Мужской</label></div>
+      <div class="option-item"><input type="radio" name="q4" id="q4_f"><label for="q4_f">Женский</label></div>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="q-title"><span class="q-num">5.</span> К какой возрастной группе Вы относитесь?</div>
+    <div class="options" style="flex-wrap: wrap;">
+      <div class="option-item"><input type="radio" name="q5" id="q5_1"><label for="q5_1">18–25</label></div>
+      <div class="option-item"><input type="radio" name="q5" id="q5_2"><label for="q5_2">26–35</label></div>
+      <div class="option-item"><input type="radio" name="q5" id="q5_3"><label for="q5_3">36–45</label></div>
+      <div class="option-item"><input type="radio" name="q5" id="q5_4"><label for="q5_4">46–55</label></div>
+      <div class="option-item"><input type="radio" name="q5" id="q5_5"><label for="q5_5">56–65</label></div>
+      <div class="option-item"><input type="radio" name="q5" id="q5_6"><label for="q5_6">66–75</label></div>
+      <div class="option-item"><input type="radio" name="q5" id="q5_7"><label for="q5_7">76 и старше</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 6 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">6.</span> Слышали ли Вы о том, что в сентябре этого года состоятся выборы в парламент Российской Федерации — Государственную Думу?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q6" id="q6_1"><label for="q6_1">Да</label></div>
+      <div class="option-item"><input type="radio" name="q6" id="q6_2"><label for="q6_2">Скорее да</label></div>
+      <div class="option-item"><input type="radio" name="q6" id="q6_3"><label for="q6_3">Скорее нет</label></div>
+      <div class="option-item"><input type="radio" name="q6" id="q6_4"><label for="q6_4">Нет</label></div>
+      <div class="option-item"><input type="radio" name="q6" id="q6_5"><label for="q6_5">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 7 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">7.</span> Вы бы хотели проголосовать на этих выборах?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q7" id="q7_1"><label for="q7_1">Да</label></div>
+      <div class="option-item"><input type="radio" name="q7" id="q7_2"><label for="q7_2">Скорее да</label></div>
+      <div class="option-item"><input type="radio" name="q7" id="q7_3"><label for="q7_3">Скорее нет</label></div>
+      <div class="option-item"><input type="radio" name="q7" id="q7_4"><label for="q7_4">Нет</label></div>
+      <div class="option-item"><input type="radio" name="q7" id="q7_5"><label for="q7_5">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 8 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">8.</span> Если бы эти выборы состоялись сегодня, за какую партию Вы бы проголосовали? <span class="q-sub">За:</span></div>
+    <div class="options vertical">
+      <div class="option-item"><input type="radio" name="q8" id="q8_1"><label for="q8_1">Единую Россию</label></div>
+      <div class="option-item"><input type="radio" name="q8" id="q8_2"><label for="q8_2">ЛДПР</label></div>
+      <div class="option-item"><input type="radio" name="q8" id="q8_3"><label for="q8_3">КПРФ</label></div>
+      <div class="option-item"><input type="radio" name="q8" id="q8_4"><label for="q8_4">Партию «Новые люди»</label></div>
+      <div class="option-item"><input type="radio" name="q8" id="q8_5"><label for="q8_5">Партию «Справедливая Россия»</label></div>
+      <div class="option-item"><input type="radio" name="q8" id="q8_6"><label for="q8_6">Против всех</label></div>
+      <div class="option-item"><input type="radio" name="q8" id="q8_7"><label for="q8_7">Затрудняюсь ответить / Ещё не определился</label></div>
+      <div class="option-item"><input type="radio" name="q8" id="q8_8"><label for="q8_8">Не пошёл бы голосовать</label></div>
+      <div class="option-item"><input type="radio" name="q8" id="q8_9"><label for="q8_9">Иную</label> <input type="text" placeholder="впишите" style="margin-left:6px; border-radius:30px; padding:0.2rem 0.8rem; border:1px solid #ccdbea;"></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 9 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">9.</span> А если бы этой партии не было в списке, за какую иную партию Вы бы проголосовали?</div>
+    <div class="free-text"><input type="text" placeholder="№ ____"></div>
+  </div>
+
+  <!-- ВОПРОС 10 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">10.</span> А за какую партию Вы бы ни в коем случае не проголосовали?</div>
+    <div class="free-text"><input type="text" placeholder="№ ______"></div>
+  </div>
+
+  <!-- ВОПРОС 11 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">11.</span> Как Вы думаете, итоги этих выборов будут подсчитаны честно?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q11" id="q11_1"><label for="q11_1">Да</label></div>
+      <div class="option-item"><input type="radio" name="q11" id="q11_2"><label for="q11_2">Скорее да</label></div>
+      <div class="option-item"><input type="radio" name="q11" id="q11_3"><label for="q11_3">Скорее нет</label></div>
+      <div class="option-item"><input type="radio" name="q11" id="q11_4"><label for="q11_4">Нет</label></div>
+      <div class="option-item"><input type="radio" name="q11" id="q11_5"><label for="q11_5">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 12 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">12.</span> Из предложенного списка кем Вы считаете себя прежде всего?</div>
+    <div class="options vertical">
+      <div class="option-item"><input type="radio" name="q12" id="q12_1"><label for="q12_1">Гражданином России</label></div>
+      <div class="option-item"><input type="radio" name="q12" id="q12_2"><label for="q12_2">Гражданином Украины</label></div>
+      <div class="option-item"><input type="radio" name="q12" id="q12_3"><label for="q12_3">Жителем Донбасса</label></div>
+      <div class="option-item"><input type="radio" name="q12" id="q12_4"><label for="q12_4">Жителем Донецка (своего населённого пункта)</label></div>
+      <div class="option-item"><input type="radio" name="q12" id="q12_5"><label for="q12_5">Представителем своей национальности</label></div>
+      <div class="option-item"><input type="radio" name="q12" id="q12_6"><label for="q12_6">Гражданином мира</label></div>
+      <div class="option-item"><input type="radio" name="q12" id="q12_7"><label for="q12_7">Европейцем</label></div>
+      <div class="option-item"><input type="radio" name="q12" id="q12_8"><label for="q12_8">Советским человеком</label></div>
+      <div class="option-item"><input type="radio" name="q12" id="q12_9"><label for="q12_9">Другое</label> <input type="text" placeholder="впишите" style="margin-left:6px; border-radius:30px; padding:0.2rem 0.8rem; border:1px solid #ccdbea;"></div>
+      <div class="option-item"><input type="radio" name="q12" id="q12_10"><label for="q12_10">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 13-15 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">13.</span> Кем Вы считаете себя по национальности?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q13" id="q13_1"><label for="q13_1">Русским(-ой)</label></div>
+      <div class="option-item"><input type="radio" name="q13" id="q13_2"><label for="q13_2">Украинцем(-кой)</label></div>
+      <div class="option-item"><input type="radio" name="q13" id="q13_3"><label for="q13_3">Другое</label> <input type="text" placeholder="впишите" style="margin-left:6px; border-radius:30px; padding:0.2rem 0.8rem; border:1px solid #ccdbea;"></div>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="q-title"><span class="q-num">14.</span> Кем по национальности был Ваш отец?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q14" id="q14_1"><label for="q14_1">Русским</label></div>
+      <div class="option-item"><input type="radio" name="q14" id="q14_2"><label for="q14_2">Украинцем</label></div>
+      <div class="option-item"><input type="radio" name="q14" id="q14_3"><label for="q14_3">Другое</label> <input type="text" placeholder="впишите" style="margin-left:6px; border-radius:30px; padding:0.2rem 0.8rem; border:1px solid #ccdbea;"></div>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="q-title"><span class="q-num">15.</span> Кем по национальности была Ваша мать?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q15" id="q15_1"><label for="q15_1">Русской</label></div>
+      <div class="option-item"><input type="radio" name="q15" id="q15_2"><label for="q15_2">Украинкой</label></div>
+      <div class="option-item"><input type="radio" name="q15" id="q15_3"><label for="q15_3">Другое</label> <input type="text" placeholder="впишите" style="margin-left:6px; border-radius:30px; padding:0.2rem 0.8rem; border:1px solid #ccdbea;"></div>
+    </div>
+  </div>
+
+  <!-- 16–18 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">16.</span> Насколько остро для Вас и Вашей семьи сейчас стоит проблема водоснабжения в доме, где Вы проживаете?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q16" id="q16_1"><label for="q16_1">Очень остро</label></div>
+      <div class="option-item"><input type="radio" name="q16" id="q16_2"><label for="q16_2">Остро</label></div>
+      <div class="option-item"><input type="radio" name="q16" id="q16_3"><label for="q16_3">Не остро</label></div>
+      <div class="option-item"><input type="radio" name="q16" id="q16_4"><label for="q16_4">Нет проблемы</label></div>
+      <div class="option-item"><input type="radio" name="q16" id="q16_5"><label for="q16_5">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="q-title"><span class="q-num">17.</span> Насколько остро для Вас и Вашей семьи сейчас стоит проблема нехватки автомобильного топлива?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q17" id="q17_1"><label for="q17_1">Очень остро</label></div>
+      <div class="option-item"><input type="radio" name="q17" id="q17_2"><label for="q17_2">Остро</label></div>
+      <div class="option-item"><input type="radio" name="q17" id="q17_3"><label for="q17_3">Не остро</label></div>
+      <div class="option-item"><input type="radio" name="q17" id="q17_4"><label for="q17_4">Нет проблемы</label></div>
+      <div class="option-item"><input type="radio" name="q17" id="q17_5"><label for="q17_5">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="q-title"><span class="q-num">18.</span> Насколько остро для Вас и Вашей семьи сейчас стоит проблема опасности для жизни от обстрелов с помощью беспилотников?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q18" id="q18_1"><label for="q18_1">Очень остро</label></div>
+      <div class="option-item"><input type="radio" name="q18" id="q18_2"><label for="q18_2">Остро</label></div>
+      <div class="option-item"><input type="radio" name="q18" id="q18_3"><label for="q18_3">Не остро</label></div>
+      <div class="option-item"><input type="radio" name="q18" id="q18_4"><label for="q18_4">Нет проблемы</label></div>
+      <div class="option-item"><input type="radio" name="q18" id="q18_5"><label for="q18_5">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 19 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">19.</span> Есть ли ещё какая-то очень важная проблема, стоящая для Вас и Вашей семьи?</div>
+    <div class="free-text"><textarea placeholder="Опишите …"></textarea></div>
+    <div class="options" style="margin-top:0.4rem;">
+      <div class="option-item"><input type="radio" name="q19" id="q19_1"><label for="q19_1">Нет</label></div>
+      <div class="option-item"><input type="radio" name="q19" id="q19_2"><label for="q19_2">З/О</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 20 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">20.</span> Считаете ли Вы себя религиозным человеком?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q20" id="q20_1"><label for="q20_1">Да</label></div>
+      <div class="option-item"><input type="radio" name="q20" id="q20_2"><label for="q20_2">Скорее да</label></div>
+      <div class="option-item"><input type="radio" name="q20" id="q20_3"><label for="q20_3">Скорее нет</label></div>
+      <div class="option-item"><input type="radio" name="q20" id="q20_4"><label for="q20_4">Нет</label></div>
+      <div class="option-item"><input type="radio" name="q20" id="q20_5"><label for="q20_5">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 21 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">21.</span> Вы считаете себя счастливым человеком?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q21" id="q21_1"><label for="q21_1">Да</label></div>
+      <div class="option-item"><input type="radio" name="q21" id="q21_2"><label for="q21_2">Скорее да</label></div>
+      <div class="option-item"><input type="radio" name="q21" id="q21_3"><label for="q21_3">Скорее нет</label></div>
+      <div class="option-item"><input type="radio" name="q21" id="q21_4"><label for="q21_4">Нет</label></div>
+      <div class="option-item"><input type="radio" name="q21" id="q21_5"><label for="q21_5">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 22 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">22.</span> Какой у Вас основной род занятий?</div>
+    <div class="options vertical">
+      <div class="option-item"><input type="radio" name="q22" id="q22_1"><label for="q22_1">Учусь в ВУЗе</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_2"><label for="q22_2">Учусь в профессионально-техническом училище, колледже</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_3"><label for="q22_3">Военнослужащий</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_4"><label for="q22_4">Работаю как бизнесмен, предприниматель</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_5"><label for="q22_5">Работаю по найму в государственной (бюджетной) организации, интеллектуальный труд</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_6"><label for="q22_6">Работаю по найму в государственной (бюджетной) организации, физический труд</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_7"><label for="q22_7">Работаю по найму в частной фирме, интеллектуальный труд</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_8"><label for="q22_8">Работаю по найму в частной фирме, физический труд</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_9"><label for="q22_9">Безработный</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_10"><label for="q22_10">Пенсионер</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_11"><label for="q22_11">Занят(-а) домашним хозяйством</label></div>
+      <div class="option-item"><input type="radio" name="q22" id="q22_12"><label for="q22_12">Иное</label> <input type="text" placeholder="впишите" style="margin-left:6px; border-radius:30px; padding:0.2rem 0.8rem; border:1px solid #ccdbea;"></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 23 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">23.</span> Как Вы оцениваете материальное положение Вашей семьи в настоящее время?</div>
+    <div class="options vertical">
+      <div class="option-item"><input type="radio" name="q23" id="q23_1"><label for="q23_1">Едва сводим концы с концами, денег не хватает даже на продукты.</label></div>
+      <div class="option-item"><input type="radio" name="q23" id="q23_2"><label for="q23_2">На продукты хватает, но покупка одежды вызывает затруднения.</label></div>
+      <div class="option-item"><input type="radio" name="q23" id="q23_3"><label for="q23_3">На продукты и одежду хватает, но покупка вещей длительного пользования — проблема.</label></div>
+      <div class="option-item"><input type="radio" name="q23" id="q23_4"><label for="q23_4">Можем без труда приобретать вещи длительного пользования, но дорогостоящие покупки затруднительны.</label></div>
+      <div class="option-item"><input type="radio" name="q23" id="q23_5"><label for="q23_5">Можем позволить дорогостоящие вещи: автомобиль, дачу и др.</label></div>
+      <div class="option-item"><input type="radio" name="q23" id="q23_6"><label for="q23_6">Без ответа</label></div>
+      <div class="option-item"><input type="radio" name="q23" id="q23_7"><label for="q23_7">Затрудняюсь ответить</label></div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС 24 -->
+  <div class="question">
+    <div class="q-title"><span class="q-num">24.</span> Ваше образование?</div>
+    <div class="options">
+      <div class="option-item"><input type="radio" name="q24" id="q24_1"><label for="q24_1">Высшее</label></div>
+      <div class="option-item"><input type="radio" name="q24" id="q24_2"><label for="q24_2">Неполное высшее (1–4 курсы вуза)</label></div>
+      <div class="option-item"><input type="radio" name="q24" id="q24_3"><label for="q24_3">Среднее или средне-специальное</label></div>
+      <div class="option-item"><input type="radio" name="q24" id="q24_4"><label for="q24_4">Неполное среднее или начальное</label></div>
+    </div>
+  </div>
+
+  <hr>
+  <div style="text-align:right; margin-top:0.8rem; font-weight:500; color:#1e3c5a;">Большое спасибо за Ваше участие!</div>
+
+  <button class="btn-submit" onclick="alert('Анкета сохранена (демонстрация). Спасибо за участие!')">📨 Отправить анкету</button>
+  <div class="footnote">Все данные анонимны и будут использованы только в обобщённом виде.</div>
+</div>
+</body>
+</html>
